@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  user_management_api: 
+    container_name: user_management_api
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      -  local_net
+  user_management_db:
+    image: mysql:8.0
+    container_name: user_management_db
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=user_management_api
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 8084:3306
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+    - local_net
+  user_management_nginx:
+    image: nginx:alpine
+    container_name: user_management_nginx
+    restart: unless-stopped
+    ports:
+     - "10083:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      - local_net
+networks:
+  local_net:
+    driver: bridge

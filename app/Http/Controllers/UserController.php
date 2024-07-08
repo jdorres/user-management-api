@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Resources\UserResource;
 use App\Interfaces\UserServiceInterface;
 use App\Models\User;
 use App\Services\UserService;
@@ -30,7 +31,7 @@ class UserController extends Controller
     {
         try{
             $user = $this->userService->getUserById($id);
-            return response()->json($user, Response::HTTP_OK);
+            return response()->json(new UserResource($user), Response::HTTP_OK);
         }catch(Exception $e){
             return response()->json(['message' => 'Falha ao exibir usuário'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -41,7 +42,7 @@ class UserController extends Controller
         try{
             $data = $request->all();
             $user = $this->userService->createUser($data);
-            return response()->json($user, Response::HTTP_CREATED);
+            return response()->json(new UserResource($user), Response::HTTP_CREATED);
         }catch(Exception $e){
             return response()->json(['message' => 'Falha ao criar usuário'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -52,7 +53,7 @@ class UserController extends Controller
         try{
             $data = $request->all();
             $user = $this->userService->updateUser($id, $data);
-            return response()->json($user, Response::HTTP_CREATED);
+            return response()->json(new UserResource($user), Response::HTTP_CREATED);
         }catch(Exception $e){
             return response()->json(['message' => 'Falha ao atualizar usuário'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

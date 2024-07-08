@@ -7,7 +7,6 @@ use App\Interfaces\UserAddressServiceInterface;
 use App\Services\UserAddressService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserAddressController extends Controller
@@ -26,7 +25,6 @@ class UserAddressController extends Controller
             $user = $this->userAddressService->addUserAddressToUser($id, $data);
             return response()->json($user, Response::HTTP_CREATED);
         }catch(Exception $e){
-            dd($e->getMessage());
             return response()->json(['message' => 'Falha ao adicionar endereço de usuário.'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

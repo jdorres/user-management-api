@@ -19,6 +19,7 @@ class UserAddress extends Model
         'address',
         'number',
         'complement',
+        'disctrict',
         'zipcode',
     ];
 }

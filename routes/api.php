@@ -23,5 +23,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('/users/{id}', [UserController::class, 'delete'])->middleware('permission:delete-users');
     Route::get('/users', [UserController::class, 'index'])->middleware('permission:list-users');
     Route::get('/users/{id}', [UserController::class, 'show'])->middleware('permission:show-users');
-    Route::post('/users/{id}/address', [UserAddressController::class, 'store']);
+    Route::post('/users/{id}/address', [UserAddressController::class, 'store'])->middleware('permission:store-users');;
 });

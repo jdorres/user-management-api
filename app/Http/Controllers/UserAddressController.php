@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserAddressRequest;
 use App\Interfaces\UserAddressServiceInterface;
 use App\Services\UserAddressService;
 use Exception;
@@ -18,7 +19,7 @@ class UserAddressController extends Controller
         $this->userAddressService = $userAddressService;
     }
 
-    public function store(Request $request, string $id): JsonResponse
+    public function store(StoreUserAddressRequest $request, string $id): JsonResponse
     {
         try{
             $data = $request->all();

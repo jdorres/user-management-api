@@ -43,14 +43,23 @@ class UserService implements UserServiceInterface
     {
         $user = $this->userRepository->find($id);
         if($user){
-            $this->userRepository->update($user->id, $data);
-            return $user->fresh();
+            return $this->userRepository->update($user, $data);
         }
         throw new Exception('User not found', Response::HTTP_NOT_FOUND);
     }
 
     public function deleteUser($id): bool
     {
-        return $this->userRepository->delete($id);
+        $user = $this->userRepository->find($id);
+        if($user){
+            return $this->userRepository->delete($user);
+        }
+        throw new Exception('User not found', Response::HTTP_NOT_FOUND);
+    }
+
+    public function setUserPermission(User $user, string $role): User
+    {
+        return $this->userRepository->setUserPermission($user, $role);
     }
 }
+

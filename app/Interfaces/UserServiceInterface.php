@@ -12,4 +12,5 @@ interface UserServiceInterface
     public function createUser(array $data): User;
     public function updateUser(int $id, array $data): ?User;
     public function deleteUser($id): bool;
+    public function setUserPermission(User $user, string $role): User;
 }

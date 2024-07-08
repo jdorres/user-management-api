@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Interfaces\UserServiceInterface;
+use App\Models\User;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -46,7 +47,7 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id):JsonResponse
     {
         try{
             $data = $request->all();
@@ -57,7 +58,7 @@ class UserController extends Controller
         }
     }
 
-    public function delete(string $id)
+    public function delete(string $id):JsonResponse
     {
         try{
             $this->userService->deleteUser($id);

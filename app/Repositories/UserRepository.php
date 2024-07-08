@@ -24,20 +24,21 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function store(array $data): User{
-        return $this->model->create($data);
-    }
-
-    public function update(int $id, array $data): ?User{
-        $user = $this->find($id);
-        $user->update($data);
+        $user = $this->model->create($data);
+        $user->assignRole('user');
         return $user;
     }
+
+    public function update(User $user, array $data): User{
+        $user->update($data);
+        return $user->fresh();
+    }
     
-    public function delete($id): bool{
-        $user = $this->find($id);
-        if ($user) {
-            return $user->delete();
-        }
-        return false;
+    public function delete(User $user): bool{
+        return $user->delete();
+    }
+
+    public function setUserPermission(User $user, string $role): User {
+        return $user->assignRole($role);
     }
 }

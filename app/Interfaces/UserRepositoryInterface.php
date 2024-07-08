@@ -10,6 +10,7 @@ interface UserRepositoryInterface
     public function index(): Collection;
     public function find($id): ?User;
     public function store(array $data): User;
-    public function update(int $id, array $data): ?User;
-    public function delete($id): bool;
+    public function update(User $user, array $data): User;
+    public function delete(User $user): bool;
+    public function setUserPermission(User $user, string $role): User;
 }

@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 
 class BaseRequest extends FormRequest
 {
@@ -36,7 +37,7 @@ class BaseRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): JsonResponse
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
